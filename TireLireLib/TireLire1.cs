@@ -1,6 +1,6 @@
 ﻿namespace TireLireLib
 {
-    public class TireLire1
+    public class Tirelire1
     {
         public static decimal MontantTotal { get; set; }
     }

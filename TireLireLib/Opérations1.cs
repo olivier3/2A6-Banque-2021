@@ -1,12 +1,12 @@
 ﻿namespace TireLireLib
 {
-    internal class Opérations1
+    public class Opérations1
     {
         public static bool Déposer(decimal montant)
         {
             if (montant > 0)
             {
-                TireLire1.MontantTotal += montant;
+                Tirelire1.MontantTotal += montant;
                 return true;
             }
             else
@@ -16,9 +16,9 @@
         }
         public static bool Retirer(decimal montant)
         {
-            if (montant < TireLire1.MontantTotal)
+            if (montant < Tirelire1.MontantTotal && montant > 0)
             {
-                TireLire1.MontantTotal -= montant;
+                Tirelire1.MontantTotal -= montant;
                 return true;
             }
             else
@@ -28,8 +28,8 @@
         }
         public static decimal Vider()
         {
-            decimal totalVider = TireLire1.MontantTotal;
-            TireLire1.MontantTotal = 0;
+            decimal totalVider = Tirelire1.MontantTotal;
+            Tirelire1.MontantTotal = 0;
             return totalVider;
         }
     }
