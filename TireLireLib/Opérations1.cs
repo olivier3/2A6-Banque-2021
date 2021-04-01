@@ -1,6 +1,6 @@
 ﻿namespace TireLireLib
 {
-    public class Opérations1
+    public static class Opérations1
     {
         public static bool Déposer(decimal montant)
         {
