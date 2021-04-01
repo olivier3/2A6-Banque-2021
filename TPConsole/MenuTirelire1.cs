@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using cstjean.info.fg.consoleplus;
 
@@ -15,23 +12,35 @@ namespace TPConsole
     {
         public static void Afficher()
         {
+            List<string> suivi = new();
             do
             {
                 ConsolePlus.Clear();
-                AfficherEntête();
-            } while (TraiterMenuEtContinuer());
+                AfficherEntête(suivi);
+            } while (TraiterMenuEtContinuer(suivi));
         }
 
-        private static void AfficherEntête()
+
+        /// <summary>
+        /// Affiche l'entête de la Tirelire
+        /// </summary>
+        private static void AfficherEntête(List<string> p_suivi)
         {
             ConsolePlus.WriteLine();
             ConsolePlus.WriteLine(ConsoleColor.Magenta, "OB - Tirelire 1");
             ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
             ConsolePlus.WriteLine();
+            ConsolePlus.Afficher("Historique", Historique(p_suivi));
+            ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Actif", $"{Tirelire1.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
-        private static bool TraiterMenuEtContinuer()
+
+        /// <summary>
+        /// Actionne une fonction de la tirelire selon le choix de l'utilisateur
+        /// </summary>
+        /// <returns>Détermine si on quitte ou non le programme</returns>
+        private static bool TraiterMenuEtContinuer(List<string> p_suivi)
         {
             if (ConsolePlus.LireChoix(out string? choix, '0',
                     "Quitter", "Déposer", "Retirer", "Vider"))
@@ -40,15 +49,15 @@ namespace TPConsole
                 switch (choix)
                 {
                     case "Déposer":
-                        Déposer();
+                        Déposer(p_suivi);
                         break;
 
                     case "Retirer":
-                        Retirer();
+                        Retirer(p_suivi);
                         break;
 
                     case "Vider":
-                        Vider();
+                        Vider(p_suivi);
                         break;
 
                     case "Quitter":
@@ -61,13 +70,18 @@ namespace TPConsole
             }
             return true;
         }
-        private static void Déposer()
+
+        /// <summary>
+        /// Permet de déposer un montant dans la tirelire
+        /// </summary>
+        private static void Déposer(List<string> p_suivi)
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
                 if (Opérations1.Déposer(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Dépôt réussi");
+                    p_suivi.Add($"Déposer {montant}");
                 }
                 else
                 {
@@ -79,13 +93,18 @@ namespace TPConsole
                 ConsolePlus.Poursuivre();
             }
         }
-        private static void Retirer()
+
+        /// <summary>
+        /// Permet de retirer un montant de la tirelire
+        /// </summary>
+        private static void Retirer(List<string> p_suivi)
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
                 if (Opérations1.Retirer(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
+                    p_suivi.Add($"Retirer {montant}");
                 }
                 else
                 {
@@ -97,12 +116,25 @@ namespace TPConsole
                 ConsolePlus.Poursuivre();
             }
         }
-        private static void Vider()
+
+        /// <summary>
+        /// Permet de vider la tirelire
+        /// </summary>
+        private static void Vider(List<string> p_suivi)
         {
             decimal montant = Opérations1.Vider();
             ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
-
+            p_suivi.Add($"Vider {montant}");
         }
 
+        public static string Historique(List<string> p_suivi)
+        {
+            string historiqueComplet = "";
+            foreach (string transaction in p_suivi)
+            {
+                historiqueComplet += $" > {transaction}";
+            }
+            return historiqueComplet;
+        }
     }
 }
