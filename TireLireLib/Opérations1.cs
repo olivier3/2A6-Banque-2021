@@ -32,10 +32,5 @@
             Tirelire1.MontantTotal = 0;
             return totalVider;
         }
-
-        public static void Historique()
-        {
-
-        }
     }
 }

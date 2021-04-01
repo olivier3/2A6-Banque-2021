@@ -127,7 +127,7 @@ namespace TPConsole
             p_suivi.Add($"Vider {montant}");
         }
 
-        public static string Historique(List<string> p_suivi)
+        private static string Historique(List<string> p_suivi)
         {
             string historiqueComplet = "";
             foreach (string transaction in p_suivi)
