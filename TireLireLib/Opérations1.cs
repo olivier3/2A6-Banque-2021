@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TireLireLib
+﻿namespace TireLireLib
 {
     public static class Opérations1
     {

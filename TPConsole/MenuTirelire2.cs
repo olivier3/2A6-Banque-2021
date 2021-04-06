@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
+﻿
 using cstjean.info.fg.consoleplus;
 
 using TireLireLib;
