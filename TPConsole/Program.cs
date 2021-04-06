@@ -11,7 +11,7 @@ namespace TPConsole
             Console.Title = "OB - TP Banque";
             ConsolePlus.IndentationGénérale = 1;
             Persistance.Charger();
-            MenuTirelire1.Afficher();
+            MenuGénéral.Afficher();
             Persistance.Sauvegarder();
         }
     }

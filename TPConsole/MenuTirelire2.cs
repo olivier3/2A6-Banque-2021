@@ -8,10 +8,11 @@ using TireLireLib;
 
 namespace TPConsole
 {
-    public static class MenuTirelire1
+    public static class MenuTirelire2
     {
         public static void Afficher()
         {
+
             do
             {
                 ConsolePlus.Clear();
@@ -26,13 +27,13 @@ namespace TPConsole
         private static void AfficherEntête()
         {
             ConsolePlus.WriteLine();
-            ConsolePlus.WriteLine(ConsoleColor.Magenta, "OB - Tirelire 1");
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, "OB - Tirelire 2");
             ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
             ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Historique", "");
             ConsolePlus.WriteLine(Historique.ConstructionHistorique());
             ConsolePlus.WriteLine();
-            ConsolePlus.Afficher("Actif", $"{Tirelire1.MontantTotal:C}");
+            ConsolePlus.Afficher("Actif", $"{Tirelire2.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -78,7 +79,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (Opérations1.Déposer(montant))
+                if (Tirelire2.Déposer(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Dépôt réussi");
                     Historique.Suivi().Add($"> Déposer {montant}");
@@ -101,7 +102,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (Opérations1.Retirer(montant))
+                if (Tirelire2.Retirer(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
                     Historique.Suivi().Add($"> Retirer {montant}");
@@ -122,7 +123,7 @@ namespace TPConsole
         /// </summary>
         private static void Vider()
         {
-            decimal montant = Opérations1.Vider();
+            decimal montant = Tirelire2.Vider();
             ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
             Historique.Suivi().Add($"> Vider {montant}");
         }
