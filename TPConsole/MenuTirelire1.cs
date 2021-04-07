@@ -12,7 +12,7 @@ namespace TPConsole
             do
             {
                 ConsolePlus.Clear();
-                MenuUtil.AfficherEntête(Tirelire1.MontantTotal, 1);
+                MenuUtil.AfficherEntête(Tirelire1.MontantTotal, "1");
             } while (MenuUtil.TraiterMenuEtContinuer(Déposer, Retirer, Vider));
         }
 

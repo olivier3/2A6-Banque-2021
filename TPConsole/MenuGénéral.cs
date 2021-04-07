@@ -29,13 +29,14 @@ namespace TPConsole
             ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Tirelire 1", $"{Tirelire1.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 2", $"{Tirelire2.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 3a", $"{Instances.Tirelire3a.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
         private static bool TraiterMenuEtContinuer()
         {
             if (ConsolePlus.LireChoix(out string? choix, 'A',
-                    "Quitter", "Reset", "Tirelire 1", "Tirelire 2"))
+                    "Quitter", "Reset", "Tirelire 1", "Tirelire 2", "Tirelire 3a"))
             {
                 ConsolePlus.WriteLine();
                 switch (choix)
@@ -55,6 +56,10 @@ namespace TPConsole
                         Historique.Suivi().Add("\n    >> Tirelire 2 ");
                         MenuTirelire2.Afficher();
                         break;
+                    case "Tirelire 3a":
+                        Historique.Suivi().Add("\n    >> Tirelire 3a ");
+                        MenuTirelire3.Afficher(Instances.Tirelire3a, "3a");
+                        break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
                         break;
@@ -70,6 +75,7 @@ namespace TPConsole
             {
                 Tirelire1.MontantTotal = 0;
                 _ = Tirelire2.Vider();
+                Instances.Tirelire3a.MontantTotal = 0;
                 Historique.Suivi().Clear();
             }
             else

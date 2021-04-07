@@ -9,10 +9,10 @@ namespace TPConsole
 {
     public static class MenuUtil
     {
-        public static void AfficherEntête(decimal montantTirelire, int numéroTirelire)
+        public static void AfficherEntête(decimal montantTirelire, string noTirelire)
         {
             ConsolePlus.WriteLine();
-            ConsolePlus.WriteLine(ConsoleColor.Magenta, $"OB - Tirelire {numéroTirelire}");
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, $"OB - Tirelire {noTirelire}");
             ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
             ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Historique", "");

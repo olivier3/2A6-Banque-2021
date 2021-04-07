@@ -1,19 +1,25 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using cstjean.info.fg.consoleplus;
 
 using TireLireLib;
 
 namespace TPConsole
 {
-    public static class MenuTirelire2
+    public static class MenuTirelire3
     {
-        public static void Afficher()
+        private static Tirelire3 tirelireActive = null!;
+        public static void Afficher(Tirelire3 tirelire, string noTirelire)
         {
-
+            tirelireActive = tirelire;
             do
             {
                 ConsolePlus.Clear();
-                MenuUtil.AfficherEntête(Tirelire2.MontantTotal, "2");
+                MenuUtil.AfficherEntête(tirelireActive.MontantTotal, noTirelire);
             } while (MenuUtil.TraiterMenuEtContinuer(Déposer, Retirer, Vider));
         }
 
@@ -24,7 +30,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (Tirelire2.Déposer(montant))
+                if (Opérations3.Déposer(tirelireActive, montant))
                 {
                     ConsolePlus.MessageOkBloquant("Dépôt réussi");
                     Historique.Suivi().Add($"> Déposer {montant}");
@@ -47,7 +53,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (Tirelire2.Retirer(montant))
+                if (Opérations3.Retirer(tirelireActive, montant))
                 {
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
                     Historique.Suivi().Add($"> Retirer {montant}");
@@ -68,7 +74,7 @@ namespace TPConsole
         /// </summary>
         private static void Vider()
         {
-            decimal montant = Tirelire2.Vider();
+            decimal montant = Opérations3.Vider(tirelireActive);
             ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
             Historique.Suivi().Add($"> Vider {montant}");
         }

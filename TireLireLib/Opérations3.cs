@@ -8,11 +8,11 @@ namespace TireLireLib
 {
     public static class Opérations3
     {
-        public static bool Déposer(Tirelire3 tirelire3, decimal montant)
+        public static bool Déposer(Tirelire3 tirelire, decimal montant)
         {
             if (montant > 0)
             {
-                tirelire3.MontantTotal += montant;
+                tirelire.MontantTotal += montant;
                 return true;
             }
             else
@@ -20,11 +20,11 @@ namespace TireLireLib
                 return false;
             }
         }
-        public static bool Retirer(Tirelire3 tirelire3, decimal montant)
+        public static bool Retirer(Tirelire3 tirelire, decimal montant)
         {
-            if (montant < tirelire3.MontantTotal && montant > 0)
+            if (montant < tirelire.MontantTotal && montant > 0)
             {
-                tirelire3.MontantTotal -= montant;
+                tirelire.MontantTotal -= montant;
                 return true;
             }
             else
@@ -32,10 +32,10 @@ namespace TireLireLib
                 return false;
             }
         }
-        public static decimal Vider(Tirelire3 tirelire3)
+        public static decimal Vider(Tirelire3 tirelire)
         {
-            decimal totalVider = tirelire3.MontantTotal;
-            tirelire3.MontantTotal = 0;
+            decimal totalVider = tirelire.MontantTotal;
+            tirelire.MontantTotal = 0;
             return totalVider;
         }
     }
