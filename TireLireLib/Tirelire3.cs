@@ -2,6 +2,6 @@
 {
     public class Tirelire3
     {
-        public decimal MontantTotal { get; private set; }
+        public decimal MontantTotal { get; set; }
     }
 }
