@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
 		<TargetFramework>net5.0</TargetFramework>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="cstjean.info.fg.consoleplus" Version="1.12.1" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\TireLireLib\TireLireLib.csproj" />
-		<ProjectReference Include="..\TirelirePlusLib\TirelirePlusLib.csproj" />
 	</ItemGroup>
 
 </Project>

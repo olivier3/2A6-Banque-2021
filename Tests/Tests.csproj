@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\TireLireLib\TireLireLib.csproj" />
+		<ProjectReference Include="..\TirelirePlusLib\TirelirePlusLib.csproj" />
 	</ItemGroup>
 
 </Project>

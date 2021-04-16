@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Text.Json;
 
 using TireLireLib;
+
+using TirelirePlusLib;
 
 namespace TPConsole
 {
@@ -61,7 +64,8 @@ namespace TPConsole
             Instances.Tirelire3b.MontantTotal = programData.MontantTirelire3b;
             Instances.Tirelire4a.MontantTotal = programData.MontantTirelire4a;
             _ = Tirelire5.Déposer(Instances.Tirelire5a, programData.MontantTirelire5a);
-            _ = Instances.Tirelire6a.Déposer(programData.MontantTirelire6a);
+            Debug.Assert(Instances.Tirelire6a.Reset(programData.MontantTirelire6a));
+            //_ = Instances.Tirelire6a.Déposer(programData.MontantTirelire6a);
         }
 
     }
