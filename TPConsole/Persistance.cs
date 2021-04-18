@@ -21,6 +21,7 @@ namespace TPConsole
             public decimal MontantTirelire4a { get; set; }
             public decimal MontantTirelire5a { get; set; }
             public decimal MontantTirelire6a { get; set; }
+            public decimal MontantTirelire6p { get; set; }
         }
 
         public static void Sauvegarder()
@@ -34,7 +35,8 @@ namespace TPConsole
                 MontantTirelire3b = Instances.Tirelire3b.MontantTotal,
                 MontantTirelire4a = Instances.Tirelire4a.MontantTotal,
                 MontantTirelire5a = Instances.Tirelire5a.MontantTotal,
-                MontantTirelire6a = Instances.Tirelire6a.MontantTotal
+                MontantTirelire6a = Instances.Tirelire6a.MontantTotal,
+                MontantTirelire6p = Instances.Tirelire6p.MontantTotal
             };
             // 2. Créer un objet de configuration
             var options = new JsonSerializerOptions
@@ -65,7 +67,7 @@ namespace TPConsole
             Instances.Tirelire4a.MontantTotal = programData.MontantTirelire4a;
             _ = Tirelire5.Déposer(Instances.Tirelire5a, programData.MontantTirelire5a);
             Debug.Assert(Instances.Tirelire6a.Reset(programData.MontantTirelire6a));
-            //_ = Instances.Tirelire6a.Déposer(programData.MontantTirelire6a);
+            Debug.Assert(Instances.Tirelire6p.Reset(programData.MontantTirelire6p));
         }
 
     }

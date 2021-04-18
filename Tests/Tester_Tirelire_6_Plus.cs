@@ -12,7 +12,7 @@ namespace Tests
         [TestMethod]
         public void T0_Réflexion()
         {
-            // La tirelire 6 plus compte un membre de plus que la tirelire 6. 
+            // La tirelire 6 plus compte un membre de plus que la tirelire 6.
             AreEqual(
                 typeof(Tirelire6).GetMembers().Length + 1,
                 typeof(Tirelire6Plus).GetMembers().Length);
