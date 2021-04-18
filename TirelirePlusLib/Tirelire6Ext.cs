@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using TireLireLib;
 
 namespace TirelirePlusLib
