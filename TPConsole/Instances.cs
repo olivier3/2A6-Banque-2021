@@ -5,13 +5,14 @@ using TirelirePlusLib;
 
 namespace TPConsole
 {
-    public static class Instances
+    public class Instances
     {
-        public static readonly Tirelire3 Tirelire3a = new Tirelire3();
-        public static readonly Tirelire3 Tirelire3b = new Tirelire3();
-        public static readonly Tirelire4 Tirelire4a = new Tirelire4();
-        public static readonly Tirelire5 Tirelire5a = new Tirelire5();
-        public static readonly Tirelire6 Tirelire6a = new Tirelire6();
-        public static readonly Tirelire6Plus Tirelire6p = new Tirelire6Plus();
+        public Tirelire3 Tirelire3a { get; set; } = new Tirelire3();
+        public Tirelire3 Tirelire3b { get; set; } = new Tirelire3();
+        public Tirelire4 Tirelire4a { get; set; } = new Tirelire4();
+        public Tirelire5 Tirelire5a { get; set; } = new Tirelire5();
+        public Tirelire6 Tirelire6a { get; set; } = new Tirelire6();
+        public Tirelire6Plus Tirelire6p { get; set; } = new Tirelire6Plus();
+        public static Instances MesInstances { get; set; } = new Instances();
     }
 }

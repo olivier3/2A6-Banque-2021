@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 
 using TireLireLib;
-
+using static TPConsole.Instances;
 using TirelirePlusLib;
 
 namespace TPConsole
@@ -31,12 +31,12 @@ namespace TPConsole
             {
                 MontantTirelire1 = Tirelire1.MontantTotal,
                 MontantTirelire2 = Tirelire2.MontantTotal,
-                MontantTirelire3a = Instances.Tirelire3a.MontantTotal,
-                MontantTirelire3b = Instances.Tirelire3b.MontantTotal,
-                MontantTirelire4a = Instances.Tirelire4a.MontantTotal,
-                MontantTirelire5a = Instances.Tirelire5a.MontantTotal,
-                MontantTirelire6a = Instances.Tirelire6a.MontantTotal,
-                MontantTirelire6p = Instances.Tirelire6p.MontantTotal
+                MontantTirelire3a = MesInstances.Tirelire3a.MontantTotal,
+                MontantTirelire3b = MesInstances.Tirelire3b.MontantTotal,
+                MontantTirelire4a = MesInstances.Tirelire4a.MontantTotal,
+                MontantTirelire5a = MesInstances.Tirelire5a.MontantTotal,
+                MontantTirelire6a = MesInstances.Tirelire6a.MontantTotal,
+                MontantTirelire6p = MesInstances.Tirelire6p.MontantTotal
             };
             // 2. Créer un objet de configuration
             var options = new JsonSerializerOptions
@@ -62,12 +62,12 @@ namespace TPConsole
             //    récupérer le montant et le mettre dans la tirelire.
             Tirelire1.MontantTotal = programData.MontantTirelire1;
             _ = Tirelire2.Déposer(programData.MontantTirelire2);
-            Instances.Tirelire3a.MontantTotal = programData.MontantTirelire3a;
-            Instances.Tirelire3b.MontantTotal = programData.MontantTirelire3b;
-            Instances.Tirelire4a.MontantTotal = programData.MontantTirelire4a;
-            _ = Tirelire5.Déposer(Instances.Tirelire5a, programData.MontantTirelire5a);
-            Debug.Assert(Instances.Tirelire6a.Reset(programData.MontantTirelire6a));
-            Debug.Assert(Instances.Tirelire6p.Reset(programData.MontantTirelire6p));
+            MesInstances.Tirelire3a.MontantTotal = programData.MontantTirelire3a;
+            MesInstances.Tirelire3b.MontantTotal = programData.MontantTirelire3b;
+            MesInstances.Tirelire4a.MontantTotal = programData.MontantTirelire4a;
+            _ = Tirelire5.Déposer(MesInstances.Tirelire5a, programData.MontantTirelire5a);
+            Debug.Assert(MesInstances.Tirelire6a.Reset(programData.MontantTirelire6a));
+            Debug.Assert(MesInstances.Tirelire6p.Reset(programData.MontantTirelire6p));
         }
 
     }

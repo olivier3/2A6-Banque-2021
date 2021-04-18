@@ -2,7 +2,7 @@
 using System.Diagnostics;
 
 using cstjean.info.fg.consoleplus;
-
+using static TPConsole.Instances;
 using TireLireLib;
 
 namespace TPConsole
@@ -29,12 +29,12 @@ namespace TPConsole
             ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Tirelire 1", $"{Tirelire1.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 2", $"{Tirelire2.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 3a", $"{Instances.Tirelire3a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 3a", $"{Instances.Tirelire3b.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 4a", $"{Instances.Tirelire4a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 5a", $"{Instances.Tirelire5a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 6a", $"{Instances.Tirelire6a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 6p", $"{Instances.Tirelire6p.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3a.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3b.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 4a", $"{MesInstances.Tirelire4a.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 5a", $"{MesInstances.Tirelire5a.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 6a", $"{MesInstances.Tirelire6a.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 6p", $"{MesInstances.Tirelire6p.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -64,27 +64,27 @@ namespace TPConsole
                         break;
                     case "Tirelire 3a":
                         Historique.Suivi().Add("\n    >> Tirelire 3a ");
-                        MenuTirelire3(Instances.Tirelire3a, "3a");
+                        MenuTirelire3(MesInstances.Tirelire3a, "3a");
                         break;
                     case "Tirelire 3b":
                         Historique.Suivi().Add("\n    >> Tirelire 3b ");
-                        MenuTirelire3(Instances.Tirelire3b, "3b");
+                        MenuTirelire3(MesInstances.Tirelire3b, "3b");
                         break;
                     case "Tirelire 4a":
                         Historique.Suivi().Add("\n    >> Tirelire 4a ");
-                        MenuTirelire4(Instances.Tirelire4a, "4a");
+                        MenuTirelire4(MesInstances.Tirelire4a, "4a");
                         break;
                     case "Tirelire 5a":
                         Historique.Suivi().Add("\n    >> Tirelire 5a ");
-                        MenuTirelire5(Instances.Tirelire5a, "5a");
+                        MenuTirelire5(MesInstances.Tirelire5a, "5a");
                         break;
                     case "Tirelire 6a":
                         Historique.Suivi().Add("\n    >> Tirelire 6a ");
-                        MenuTirelire6(Instances.Tirelire6a, "6a");
+                        MenuTirelire6(MesInstances.Tirelire6a, "6a");
                         break;
                     case "Tirelire 6p":
                         Historique.Suivi().Add("\n    >> Tirelire 6p ");
-                        MenuTirelire6(Instances.Tirelire6p, "6p");
+                        MenuTirelire6(MesInstances.Tirelire6p, "6p");
                         break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
@@ -100,12 +100,12 @@ namespace TPConsole
             {
                 Tirelire1.MontantTotal = 0;
                 _ = Tirelire2.Vider();
-                Instances.Tirelire3a.MontantTotal = 0;
-                Instances.Tirelire3b.MontantTotal = 0;
-                Instances.Tirelire4a.MontantTotal = 0;
-                _ = Tirelire5.Vider(Instances.Tirelire5a);
-                _ = Instances.Tirelire6a.Vider();
-                _ = Instances.Tirelire6p.Vider();
+                MesInstances.Tirelire3a.MontantTotal = 0;
+                MesInstances.Tirelire3b.MontantTotal = 0;
+                MesInstances.Tirelire4a.MontantTotal = 0;
+                _ = Tirelire5.Vider(MesInstances.Tirelire5a);
+                _ = MesInstances.Tirelire6a.Vider();
+                _ = MesInstances.Tirelire6p.Vider();
                 Historique.Suivi().Clear();
             }
             else
