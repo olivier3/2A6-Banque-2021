@@ -35,6 +35,7 @@ namespace TPConsole
             ConsolePlus.Afficher("Tirelire 5a", $"{MesInstances.Tirelire5a.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 6a", $"{MesInstances.Tirelire6a.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 6p", $"{MesInstances.Tirelire6p.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 7a", $"{MesInstances.Tirelire7a.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -42,7 +43,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireChoix(out string? choix, 'A',
                     "Quitter", "Reset", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p"))
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a"))
             {
                 ConsolePlus.WriteLine();
                 switch (choix)
@@ -86,6 +87,10 @@ namespace TPConsole
                         Historique.Suivi().Add("\n    >> Tirelire 6p ");
                         MenuTirelire6(MesInstances.Tirelire6p, "6p");
                         break;
+                    case "Tirelire 7a":
+                        Historique.Suivi().Add("\n    >> Tirelire 7a ");
+                        MenuTirelire6(MesInstances.Tirelire7a, "7a");
+                        break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
                         break;
@@ -106,6 +111,7 @@ namespace TPConsole
                 _ = Tirelire5.Vider(MesInstances.Tirelire5a);
                 _ = MesInstances.Tirelire6a.Vider();
                 _ = MesInstances.Tirelire6p.Vider();
+                _ = MesInstances.Tirelire7a.Vider();
                 Historique.Suivi().Clear();
             }
             else
