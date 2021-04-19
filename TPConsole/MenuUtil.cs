@@ -59,11 +59,32 @@ namespace TPConsole
                 if (déposerDsTirelire(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Dépôt réussi");
-                    Historique.Suivi().Add($"> Déposer {montant}");
+                    Historique.Suivi().Add($"> Déposer {montant} ");
                 }
                 else
                 {
                     ConsolePlus.MessageErreurBloquant("Échec du dépôt");
+                }
+            }
+            else
+            {
+                ConsolePlus.Poursuivre();
+            }
+        }
+        public static void Déposer(Action<decimal> déposerDsTirelire)
+        {
+            if (ConsolePlus.LireDécimal("Montant", out decimal montant))
+            {
+                try
+                {
+                    déposerDsTirelire(montant);
+                    ConsolePlus.MessageOkBloquant("Dépôt réussi");
+                    Historique.Suivi().Add($"> Déposer {montant} ");
+                }
+                catch
+                {
+                    ConsolePlus.MessageErreurBloquant($"Impossible de déposer {montant:C}.\n" +
+                        "Le montant doit être positif.");
                 }
             }
             else
@@ -78,7 +99,7 @@ namespace TPConsole
                 if (retirerDsTirelire(montant))
                 {
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
-                    Historique.Suivi().Add($"> Retirer {montant}");
+                    Historique.Suivi().Add($"> Retirer {montant} ");
                 }
                 else
                 {
@@ -90,11 +111,40 @@ namespace TPConsole
                 ConsolePlus.Poursuivre();
             }
         }
+        public static void Retirer(Action<decimal> retirerDsTirelire)
+        {
+            if (ConsolePlus.LireDécimal("Montant", out decimal montant))
+            {
+                try
+                {
+                    retirerDsTirelire(montant);
+                    ConsolePlus.MessageOkBloquant("Retrait réussi");
+                    Historique.Suivi().Add($"> Retirer {montant} ");
+                }
+                catch
+                {
+                    if (montant < 0)
+                    {
+                        ConsolePlus.MessageErreurBloquant($"Impossible de retirer {montant:C}.\n" +
+                            "Le montant doit être positif.");
+                    }
+                    else
+                    {
+                        ConsolePlus.MessageErreurBloquant($"Impossible de retirer {montant:C}.\n" +
+                           "Actif insuffisant.");
+                    }
+                }
+            }
+            else
+            {
+                ConsolePlus.Poursuivre();
+            }
+        }
         public static void Vider(Func<decimal> viderLaTirelire)
         {
             decimal montant = viderLaTirelire();
             ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
-            Historique.Suivi().Add($"> Vider {montant}");
+            Historique.Suivi().Add($"> Vider {montant} ");
         }
     }
 }

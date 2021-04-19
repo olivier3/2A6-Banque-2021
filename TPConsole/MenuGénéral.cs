@@ -36,6 +36,7 @@ namespace TPConsole
             ConsolePlus.Afficher("Tirelire 6a", $"{MesInstances.Tirelire6a.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 6p", $"{MesInstances.Tirelire6p.MontantTotal:C}");
             ConsolePlus.Afficher("Tirelire 7a", $"{MesInstances.Tirelire7a.MontantTotal:C}");
+            ConsolePlus.Afficher("Tirelire 9a", $"{MesInstances.Tirelire9a.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -43,7 +44,7 @@ namespace TPConsole
         {
             if (ConsolePlus.LireChoix(out string? choix, 'A',
                     "Quitter", "Reset", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a"))
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a"))
             {
                 ConsolePlus.WriteLine();
                 switch (choix)
@@ -91,6 +92,10 @@ namespace TPConsole
                         Historique.Suivi().Add("\n    >> Tirelire 7a ");
                         MenuTirelire6(MesInstances.Tirelire7a, "7a");
                         break;
+                    case "Tirelire 9a":
+                        Historique.Suivi().Add("\n    >> Tirelire 9a ");
+                        MenuTirelire9(MesInstances.Tirelire9a, "9a");
+                        break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
                         break;
@@ -112,6 +117,7 @@ namespace TPConsole
                 _ = MesInstances.Tirelire6a.Vider();
                 _ = MesInstances.Tirelire6p.Vider();
                 _ = MesInstances.Tirelire7a.Vider();
+                _ = MesInstances.Tirelire9a.Vider();
                 Historique.Suivi().Clear();
             }
             else
@@ -200,6 +206,22 @@ namespace TPConsole
             }
         }
         private static void MenuTirelire6(this Tirelire6 tirelire, string noTirelire)
+        {
+            var continuer = true;
+            while (continuer)
+            {
+                ConsolePlus.Clear();
+                MenuUtil.AfficherEntête(tirelire.MontantTotal, noTirelire);
+                continuer = MenuUtil.TraiterMenuEtContinuer(
+                    //Déposer
+                    () => MenuUtil.Déposer(montant => tirelire.Déposer(montant)),
+                    //Retirer
+                    () => MenuUtil.Retirer(montant => tirelire.Retirer(montant)),
+                    //Vider
+                    () => MenuUtil.Vider(() => tirelire.Vider()));
+            }
+        }
+        private static void MenuTirelire9(this Tirelire9 tirelire, string noTirelire)
         {
             var continuer = true;
             while (continuer)
