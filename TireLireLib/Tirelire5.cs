@@ -1,7 +1,10 @@
-﻿namespace TireLireLib
+﻿using System.Text.Json.Serialization;
+
+namespace TireLireLib
 {
     public class Tirelire5
     {
+        [JsonInclude]
         public decimal MontantTotal { get; private set; }
         public static bool Déposer(Tirelire5 tirelire, decimal montant)
         {
