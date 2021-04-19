@@ -11,10 +11,10 @@ namespace TPConsole
 
         private class ProgramData
         {
-            public string DataVersion { get; set; } = "OB-2.0";
-            public decimal MontantTirelire1 { get; set; }
-            public decimal MontantTirelire2 { get; set; }
-            public Instances MesInstances { get; set; } = new Instances();
+            public string DataVersion { get; init; } = "OB-2.0";
+            public decimal MontantTirelire1 { get; init; }
+            public decimal MontantTirelire2 { get; init; }
+            public Instances MesInstances { get; init; } = new Instances();
         }
 
         public static void Sauvegarder()
