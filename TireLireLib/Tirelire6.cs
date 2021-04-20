@@ -2,10 +2,8 @@
 
 namespace TireLireLib
 {
-    public class Tirelire6
+    public class Tirelire6 : ActifVidable
     {
-        [JsonInclude]
-        public decimal MontantTotal { get; protected set; }
         public bool Déposer(decimal montant)
         {
             if (montant > 0)
@@ -29,12 +27,6 @@ namespace TireLireLib
             {
                 return false;
             }
-        }
-        public decimal Vider()
-        {
-            decimal totalVider = this.MontantTotal;
-            this.MontantTotal = 0;
-            return totalVider;
         }
     }
 }

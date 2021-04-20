@@ -2,10 +2,8 @@
 
 namespace TireLireLib
 {
-    public class Tirelire5
+    public class Tirelire5 : ActifDeBase
     {
-        [JsonInclude]
-        public decimal MontantTotal { get; private set; }
         public static bool Déposer(Tirelire5 tirelire, decimal montant)
         {
             if (montant > 0)

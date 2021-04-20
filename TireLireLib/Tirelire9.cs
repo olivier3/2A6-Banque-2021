@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TireLireLib
 {
-    public class Tirelire9
+    public class Tirelire9 : ActifVidable
     {
-        public decimal MontantTotal { get; protected set; }
         public void Déposer(decimal montant)
         {
             if (montant <= 0)
@@ -29,12 +28,6 @@ namespace TireLireLib
                 throw new ArgumentOutOfRangeException(nameof(montant), montant, "trop petit");
             }
             this.MontantTotal -= montant;
-        }
-        public decimal Vider()
-        {
-            decimal totalVider = this.MontantTotal;
-            this.MontantTotal = 0;
-            return totalVider;
         }
     }
 }
