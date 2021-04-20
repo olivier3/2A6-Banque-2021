@@ -81,10 +81,15 @@ namespace TPConsole
                     ConsolePlus.MessageOkBloquant("Dépôt réussi");
                     Historique.Suivi().Add($"> Déposer {montant} ");
                 }
-                catch
+                catch (ArgumentOutOfRangeException)
                 {
                     ConsolePlus.MessageErreurBloquant($"Impossible de déposer {montant:C}.\n" +
                         "Le montant doit être positif.");
+                }
+                catch (ArgumentException)
+                {
+                    ConsolePlus.MessageErreurBloquant($"Impossible de déposer des fractions de cents.\n" +
+                           "Le montant est trop précis.");
                 }
             }
             else
@@ -121,7 +126,7 @@ namespace TPConsole
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
                     Historique.Suivi().Add($"> Retirer {montant} ");
                 }
-                catch
+                catch (ArgumentOutOfRangeException)
                 {
                     if (montant < 0)
                     {
@@ -133,6 +138,11 @@ namespace TPConsole
                         ConsolePlus.MessageErreurBloquant($"Impossible de retirer {montant:C}.\n" +
                            "Actif insuffisant.");
                     }
+                }
+                catch (ArgumentException)
+                {
+                    ConsolePlus.MessageErreurBloquant($"Impossible de retirer des fractions de cents.\n" +
+                           "Le montant est trop précis.");
                 }
             }
             else

@@ -14,6 +14,10 @@ namespace TireLireLib
             {
                 throw new ArgumentOutOfRangeException(nameof(montant), montant, "trop petit");
             }
+            if (Math.Round(montant, 2) != montant)
+            {
+                throw new ArgumentException("trop précis", "montant");
+            }
             this.MontantTotal += montant;
         }
         public void Retirer(decimal montant)
@@ -26,6 +30,10 @@ namespace TireLireLib
             if (montant <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(montant), montant, "trop petit");
+            }
+            if (Math.Round(montant, 2) != montant)
+            {
+                throw new ArgumentException("trop précis", "montant");
             }
             this.MontantTotal -= montant;
         }
