@@ -13,7 +13,20 @@ namespace TPConsole
             ConsolePlus.IndentationGénérale = 1;
             Persistance.Charger();
             AppDomain.CurrentDomain.ProcessExit += ExitHandler;
-            MenuGénéral.Afficher();
+            try
+            {
+                MenuGénéral.Afficher();
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Normalement il faudrait catcher Exception ici. 
+                // Mais on se limite à InvalidOperationException pour faciliter le débogage.
+                ConsolePlus.MessageErreurBloquant(
+                    "Désolé, une erreur inattendue s'est produite."
+                    + "\nLe programme doit malheureusement fermer."
+                    + $"\n{ex.GetType().Name} : {ex.Message}");
+
+            }
             Persistance.Sauvegarder();
         }
 

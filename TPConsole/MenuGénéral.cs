@@ -43,7 +43,7 @@ namespace TPConsole
         private static bool TraiterMenuEtContinuer()
         {
             if (ConsolePlus.LireChoix(out string? choix, 'A',
-                    "Quitter", "Reset", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
+                    "Quitter", "Reset", "Planter", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
                     "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a"))
             {
                 ConsolePlus.WriteLine();
@@ -55,6 +55,8 @@ namespace TPConsole
                     case "Reset":
                         Reset();
                         break;
+                    case "Planter":
+                        throw new InvalidOperationException("OB dit Boom!");
                     case "Tirelire 1":
                         //Mettre add \n
                         Historique.Suivi().Add("\n    >> Tirelire 1 ");
