@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TireLireLib
 {
@@ -16,7 +12,7 @@ namespace TireLireLib
             }
             if (Math.Round(montant, 2) != montant)
             {
-                throw new ArgumentException("trop précis", "montant");
+                throw new ArgumentException("trop précis", nameof(montant));
             }
             this.MontantTotal += montant;
         }
@@ -33,7 +29,7 @@ namespace TireLireLib
             }
             if (Math.Round(montant, 2) != montant)
             {
-                throw new ArgumentException("trop précis", "montant");
+                throw new ArgumentException("trop précis", nameof(montant));
             }
             this.MontantTotal -= montant;
         }

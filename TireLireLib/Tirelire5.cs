@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TireLireLib
+﻿namespace TireLireLib
 {
     public class Tirelire5 : ActifDeBase
     {
