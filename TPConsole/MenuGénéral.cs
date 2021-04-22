@@ -9,6 +9,7 @@ namespace TPConsole
 {
     public static class MenuGénéral
     {
+        private static bool menu = true;
         public static void Afficher()
         {
             do
@@ -27,24 +28,42 @@ namespace TPConsole
             ConsolePlus.Afficher("Historique", "");
             ConsolePlus.WriteLine(Historique.ConstructionHistorique());
             ConsolePlus.WriteLine();
-            ConsolePlus.Afficher("Tirelire 1", $"{Tirelire1.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 2", $"{Tirelire2.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3b.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 4a", $"{MesInstances.Tirelire4a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 5a", $"{MesInstances.Tirelire5a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 6a", $"{MesInstances.Tirelire6a.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 6p", $"{MesInstances.Tirelire6p.MontantTotal:C}");
-            ConsolePlus.Afficher("Tirelire 7a", $"{MesInstances.Tirelire7a.MontantTotal:C}");
+            if (menu)
+            {
+                ConsolePlus.Afficher("Tirelire 1", $"{Tirelire1.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 2", $"{Tirelire2.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3a.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 3a", $"{MesInstances.Tirelire3b.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 4a", $"{MesInstances.Tirelire4a.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 5a", $"{MesInstances.Tirelire5a.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 6a", $"{MesInstances.Tirelire6a.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 6p", $"{MesInstances.Tirelire6p.MontantTotal:C}");
+                ConsolePlus.Afficher("Tirelire 7a", $"{MesInstances.Tirelire7a.MontantTotal:C}");
+            }
             ConsolePlus.Afficher("Tirelire 9a", $"{MesInstances.Tirelire9a.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
+        private static string[] Option()
+        {
+
+            if (menu)
+            {
+                string[] menuLong = {
+                    "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a"};
+                return menuLong;
+            }
+            else
+            {
+                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a" };
+                return menuCourt;
+            }
+        }
+
         private static bool TraiterMenuEtContinuer()
         {
-            if (ConsolePlus.LireChoix(out string? choix, 'A',
-                    "Quitter", "Reset", "Planter", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a"))
+            if (ConsolePlus.LireChoix(out string? choix, 'A', Option()))
             {
                 ConsolePlus.WriteLine();
                 switch (choix)
@@ -57,6 +76,12 @@ namespace TPConsole
                         break;
                     case "Planter":
                         throw new InvalidOperationException("OB dit Boom!");
+                    case "Réduire":
+                        menu = false;
+                        break;
+                    case "Étendre":
+                        menu = true;
+                        break;
                     case "Tirelire 1":
                         //Mettre add \n
                         Historique.Suivi().Add("\n    >> Tirelire 1 ");
