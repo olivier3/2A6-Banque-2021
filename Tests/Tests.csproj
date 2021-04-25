@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\BanqueLib\BanqueLib.csproj" />
 		<ProjectReference Include="..\TireLireLib\TireLireLib.csproj" />
 		<ProjectReference Include="..\TirelirePlusLib\TirelirePlusLib.csproj" />
 		<ProjectReference Include="..\TPConsole\TPConsole.csproj" />
