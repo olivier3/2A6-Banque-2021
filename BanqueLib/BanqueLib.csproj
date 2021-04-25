@@ -6,7 +6,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\TireLireLib\TireLireLib.csproj" />
-		<ProjectReference Include="..\TPConsole\TPConsole.csproj" />
 	</ItemGroup>
 
 </Project>

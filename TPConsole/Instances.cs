@@ -1,4 +1,6 @@
 ﻿
+using BanqueLib;
+
 using TireLireLib;
 
 using TirelirePlusLib;
@@ -15,6 +17,7 @@ namespace TPConsole
         public Tirelire6Plus Tirelire6p { get; init; } = new Tirelire6Plus();
         public Tirelire7 Tirelire7a { get; init; } = new Tirelire7();
         public Tirelire9 Tirelire9a { get; init; } = new Tirelire9();
+        public Compte1 Compte1 { get; init; } = new Compte1(1, "Olivier Bilodeau");
         public static Instances MesInstances { get; set; } = new Instances();
     }
 }

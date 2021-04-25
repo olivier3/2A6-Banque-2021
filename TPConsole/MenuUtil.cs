@@ -21,6 +21,19 @@ namespace TPConsole
             ConsolePlus.Afficher("Actif", $"{montantTirelire:C}");
             ConsolePlus.WriteLine();
         }
+        public static void AfficherEntêteCompte(int numéro, string titulaire, decimal montantTirelire)
+        {
+            ConsolePlus.WriteLine();
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, $"OB - Mon compte {numéro}");
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
+            ConsolePlus.WriteLine();
+            ConsolePlus.Afficher("Historique", "");
+            ConsolePlus.WriteLine(Historique.ConstructionHistorique());
+            ConsolePlus.WriteLine();
+            ConsolePlus.Afficher("Titulaire", $"{titulaire}");
+            ConsolePlus.Afficher("Solde", $"{montantTirelire:C}");
+            ConsolePlus.WriteLine();
+        }
 
         public static bool TraiterMenuEtContinuer(Action déposer, Action retirer, Action vider)
         {
