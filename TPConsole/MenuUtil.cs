@@ -34,7 +34,6 @@ namespace TPConsole
             ConsolePlus.Afficher("Solde", $"{montantTirelire:C}");
             ConsolePlus.WriteLine();
         }
-
         public static bool TraiterMenuEtContinuer(Action déposer, Action retirer, Action vider)
         {
             if (ConsolePlus.LireChoix(out string? choix, '0',
