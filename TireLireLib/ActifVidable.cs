@@ -2,7 +2,7 @@
 {
     public abstract class ActifVidable : ActifDeBase
     {
-        public decimal Vider()
+        public virtual decimal Vider()
         {
             decimal totalVider = this.MontantTotal;
             this.MontantTotal = 0;

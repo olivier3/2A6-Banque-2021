@@ -13,11 +13,19 @@ namespace BanqueLib
 
         public decimal Fermer()
         {
+            if (this.État == ÉtatDuCompte.Fermé)
+            {
+                throw new InvalidOperationException("Impossible de fermer un compte déjà fermé");
+            }
             this.État = ÉtatDuCompte.Fermé;
-            return this.Vider();
+            return MontantTotal;
         }
         public void Réactiver()
         {
+            if (this.État == ÉtatDuCompte.Actif)
+            {
+                throw new InvalidOperationException("Impossible de réactiver un compte déjà actif");
+            }
             this.État = ÉtatDuCompte.Actif;
         }
         [JsonConstructor]
@@ -29,6 +37,33 @@ namespace BanqueLib
                 throw new ArgumentException("Un état fermé est incompatible avec un solde non nul.", nameof(état));
             }
             this.État = état;
+        }
+        public override void Déposer(decimal montant)
+        {
+            if (this.État != ÉtatDuCompte.Actif)
+            {
+                throw new InvalidOperationException(
+                    "Impossible de déposer car le compte n'est pas actif");
+            }
+            base.Déposer(montant);
+        }
+        public override void Retirer(decimal montant)
+        {
+            if (this.État != ÉtatDuCompte.Actif)
+            {
+                throw new InvalidOperationException(
+                    "Impossible de retirer car le compte n'est pas actif");
+            }
+            base.Retirer(montant);
+        }
+        public override decimal Vider()
+        {
+            if (this.État != ÉtatDuCompte.Actif)
+            {
+                throw new InvalidOperationException(
+                    "Impossible de vider car le compte n'est pas actif");
+            }
+            return base.Vider();
         }
     }
 }

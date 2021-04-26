@@ -4,7 +4,7 @@ namespace TireLireLib
 {
     public class Tirelire9 : ActifVidable
     {
-        public void Déposer(decimal montant)
+        public virtual void Déposer(decimal montant)
         {
             if (montant <= 0)
             {
@@ -16,7 +16,7 @@ namespace TireLireLib
             }
             this.MontantTotal += montant;
         }
-        public void Retirer(decimal montant)
+        public virtual void Retirer(decimal montant)
         {
             if (montant > this.MontantTotal)
             {
