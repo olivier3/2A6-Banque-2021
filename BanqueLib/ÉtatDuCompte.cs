@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace BanqueLib
 {
-    public class ÉtatDuCompte
+    public enum ÉtatDuCompte
     {
-        public enum ÉtatCompte
-        {
-            Actif,
-            Fermé
-        }
+        Actif,
+        Fermé
     }
 }
