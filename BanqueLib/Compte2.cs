@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
+using TireLireLib;
 
 namespace BanqueLib
 {
@@ -11,15 +9,25 @@ namespace BanqueLib
     {
         public ÉtatDuCompte État { get; set; }
 
+        public Compte2(Compte2 copie)
+            : base(copie)
+        {
+            this.État = copie.État;
+        }
+
         public decimal Fermer()
         {
             if (this.État == ÉtatDuCompte.Fermé)
             {
                 throw new InvalidOperationException("Impossible de fermer un compte déjà fermé");
             }
+            decimal montant = this.MontantTotal;
+            this.MontantTotal = 0;
+            Historique.Suivi().Add($"> Fermer {montant} ");
             this.État = ÉtatDuCompte.Fermé;
-            return MontantTotal;
+            return montant;
         }
+
         public void Réactiver()
         {
             if (this.État == ÉtatDuCompte.Actif)
@@ -27,7 +35,9 @@ namespace BanqueLib
                 throw new InvalidOperationException("Impossible de réactiver un compte déjà actif");
             }
             this.État = ÉtatDuCompte.Actif;
+            Historique.Suivi().Add($"> Réactiver ");
         }
+
         [JsonConstructor]
         public Compte2(int numéro, string titulaire, decimal montantTotal = 0, ÉtatDuCompte état = ÉtatDuCompte.Actif)
             : base(numéro, titulaire, montantTotal)
@@ -38,6 +48,7 @@ namespace BanqueLib
             }
             this.État = état;
         }
+
         public override void Déposer(decimal montant)
         {
             if (this.État != ÉtatDuCompte.Actif)
@@ -47,6 +58,7 @@ namespace BanqueLib
             }
             base.Déposer(montant);
         }
+
         public override void Retirer(decimal montant)
         {
             if (this.État != ÉtatDuCompte.Actif)
@@ -56,6 +68,7 @@ namespace BanqueLib
             }
             base.Retirer(montant);
         }
+
         public override decimal Vider()
         {
             if (this.État != ÉtatDuCompte.Actif)
@@ -64,6 +77,21 @@ namespace BanqueLib
                     "Impossible de vider car le compte n'est pas actif");
             }
             return base.Vider();
+        }
+
+        public override string ToString()
+            => base.ToString() + $"{this.État}";
+
+        public override bool Equals(object obj)
+            => obj is Compte2 c
+            && c.Numéro == this.Numéro
+            && c.Titulaire == this.Titulaire
+            && c.MontantTotal == this.MontantTotal
+            && c.État == this.État;
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

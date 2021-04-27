@@ -43,6 +43,7 @@ namespace TPConsole
             }
             ConsolePlus.Afficher("Tirelire 9a", $"{MesInstances.Tirelire9a.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 1", $"{MesInstances.Compte1.MontantTotal:C}");
+            ConsolePlus.Afficher("Mon compte 2", $"{MesInstances.Compte2.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -53,12 +54,12 @@ namespace TPConsole
             {
                 string[] menuLong = {
                     "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1"};
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2"};
                 return menuLong;
             }
             else
             {
-                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1" };
+                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2" };
                 return menuCourt;
             }
         }
@@ -128,6 +129,10 @@ namespace TPConsole
                     case "Mon compte 1":
                         Historique.Suivi().Add("\n    >> Mon compte 1 ");
                         MenuCompte1(MesInstances.Compte1, MesInstances.Compte1.Numéro);
+                        break;
+                    case "Mon compte 2":
+                        Historique.Suivi().Add("\n    >> Mon compte 2 ");
+                        MenuCompte2(MesInstances.Compte2, MesInstances.Compte2.Numéro);
                         break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
@@ -284,6 +289,24 @@ namespace TPConsole
                     () => MenuUtil.Retirer(montant => tirelire.Retirer(montant)),
                     //Vider
                     () => MenuUtil.Vider(() => tirelire.Vider()));
+            }
+        }
+        private static void MenuCompte2(this Compte2 tirelire, int numéro)
+        {
+            var continuer = true;
+            while (continuer)
+            {
+                ConsolePlus.Clear();
+                MenuUtil.AfficherEntêteCompte2(numéro, tirelire.Titulaire, tirelire.MontantTotal, tirelire.État);
+                continuer = MenuUtil.TraiterMenuEtContinuerCompte2(
+                    //Déposer
+                    () => MenuUtil.Déposer(montant => tirelire.Déposer(montant)),
+                    //Retirer
+                    () => MenuUtil.Retirer(montant => tirelire.Retirer(montant)),
+                    //Vider
+                    () => MenuUtil.Vider(() => tirelire.Vider()),
+                    () => MenuUtil.Fermer(() => tirelire.Fermer(), tirelire.MontantTotal),
+                    () => MenuUtil.Réactiver(() => tirelire.Réactiver()));
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 
+using BanqueLib;
+
 using cstjean.info.fg.consoleplus;
 
 using TireLireLib;
@@ -34,6 +36,21 @@ namespace TPConsole
             ConsolePlus.Afficher("Solde", $"{montantTirelire:C}");
             ConsolePlus.WriteLine();
         }
+
+        public static void AfficherEntêteCompte2(int numéro, string titulaire, decimal montantTirelire, ÉtatDuCompte état)
+        {
+            ConsolePlus.WriteLine();
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, $"OB - Mon compte {numéro}");
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
+            ConsolePlus.WriteLine();
+            ConsolePlus.Afficher("Historique", "");
+            ConsolePlus.WriteLine(Historique.ConstructionHistorique());
+            ConsolePlus.WriteLine();
+            ConsolePlus.Afficher("Titulaire", $"{titulaire}");
+            ConsolePlus.Afficher("Solde", $"{montantTirelire:C}");
+            ConsolePlus.Afficher("État", $"{état}");
+            ConsolePlus.WriteLine();
+        }
         public static bool TraiterMenuEtContinuer(Action déposer, Action retirer, Action vider)
         {
             if (ConsolePlus.LireChoix(out string? choix, '0',
@@ -64,18 +81,65 @@ namespace TPConsole
             }
             return true;
         }
+        public static bool TraiterMenuEtContinuerCompte2(Action déposer, Action retirer, Action vider, Action fermer, Action réactiver)
+        {
+            if (ConsolePlus.LireChoix(out string? choix, '0',
+                    "Quitter", "Déposer", "Retirer", "Vider", "Fermer", "Réactiver"))
+            {
+                ConsolePlus.WriteLine();
+                switch (choix)
+                {
+                    case "Déposer":
+                        déposer();
+                        break;
+
+                    case "Retirer":
+                        retirer();
+                        break;
+
+                    case "Vider":
+                        vider();
+                        break;
+
+                    case "Quitter":
+                        return false;
+
+                    case "Fermer":
+                        fermer();
+                        break;
+
+                    case "Réactiver":
+                        réactiver();
+                        break;
+
+                    default:
+                        Debug.Fail($"Cas non traité: {choix}");
+                        break;
+                }
+            }
+            return true;
+        }
         public static void Déposer(Func<decimal, bool> déposerDsTirelire)
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (déposerDsTirelire(montant))
+                try
                 {
-                    ConsolePlus.MessageOkBloquant("Dépôt réussi");
+                    _ = déposerDsTirelire(montant);
+                    ConsolePlus.MessageOkBloquant("Dépot réussi");
                     Historique.Suivi().Add($"> Déposer {montant} ");
                 }
-                else
+                catch (InvalidOperationException ex)
                 {
-                    ConsolePlus.MessageErreurBloquant("Échec du dépôt");
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
+                }
+                catch (ArgumentException ex)
+                {
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
                 }
             }
             else
@@ -113,14 +177,23 @@ namespace TPConsole
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
             {
-                if (retirerDsTirelire(montant))
+                try
                 {
+                    _ = retirerDsTirelire(montant);
                     ConsolePlus.MessageOkBloquant("Retrait réussi");
                     Historique.Suivi().Add($"> Retirer {montant} ");
                 }
-                else
+                catch (InvalidOperationException ex)
                 {
-                    ConsolePlus.MessageErreurBloquant("Échec du retrait");
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
+                }
+                catch (ArgumentException ex)
+                {
+                    ConsolePlus.MessageErreurBloquant(ex.Message);
                 }
             }
             else
@@ -164,9 +237,45 @@ namespace TPConsole
         }
         public static void Vider(Func<decimal> viderLaTirelire)
         {
-            decimal montant = viderLaTirelire();
-            ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
-            Historique.Suivi().Add($"> Vider {montant} ");
+            try
+            {
+                decimal montant = viderLaTirelire();
+                ConsolePlus.MessageOkBloquant($"Vous avez vidé la tirelire. Montant récupéré: {montant:C}");
+                Historique.Suivi().Add($"> Vider {montant} ");
+            }
+            catch (InvalidOperationException ex)
+
+            {
+                ConsolePlus.MessageErreurBloquant(ex.Message);
+            }
+        }
+
+        public static void Réactiver(Action réactiver)
+        {
+            try
+            {
+                réactiver();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ConsolePlus.MessageErreurBloquant(ex.Message);
+            }
+            ConsolePlus.MessageOkBloquant("Le compte a été réactivé.");
+        }
+
+
+
+        public static void Fermer(Action fermer, decimal montant)
+        {
+            try
+            {
+                fermer();
+                ConsolePlus.MessageOkBloquant($"Votre compte a été fermé. Montant récupéré: {montant:C}.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ConsolePlus.MessageErreurBloquant(ex.Message);
+            }
         }
     }
 }
