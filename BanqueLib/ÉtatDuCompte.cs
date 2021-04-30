@@ -3,6 +3,7 @@
     public enum ÉtatDuCompte
     {
         Actif,
-        Fermé
+        Fermé,
+        Gelé
     }
 }
