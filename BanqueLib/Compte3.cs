@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
+using TireLireLib;
+
 namespace BanqueLib
 {
     public class Compte3 : Compte2
@@ -12,6 +14,7 @@ namespace BanqueLib
                 throw new InvalidOperationException("Impossible de geler car le compte n'est pas actif");
             }
             this.État = ÉtatDuCompte.Gelé;
+            Historique.Suivi().Add($"> Geler ");
         }
         public decimal VerserIntérêts(decimal pourcentage)
         {
@@ -25,6 +28,7 @@ namespace BanqueLib
             }
             decimal intérêt = Math.Round(this.MontantTotal * (pourcentage / 100), 2);
             this.MontantTotal += intérêt;
+            Historique.Suivi().Add($"> Verser {intérêt} ");
             return intérêt;
         }
         public Compte3(Compte3 copie)

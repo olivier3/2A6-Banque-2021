@@ -10,7 +10,7 @@ namespace TPConsole
 {
     public static class MenuGénéral
     {
-        private static bool menu = true;
+        private static bool menu = false;
         public static void Afficher()
         {
             do
@@ -44,6 +44,7 @@ namespace TPConsole
             ConsolePlus.Afficher("Tirelire 9a", $"{MesInstances.Tirelire9a.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 1", $"{MesInstances.Compte1.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 2", $"{MesInstances.Compte2.MontantTotal:C}");
+            ConsolePlus.Afficher("Mon compte 3", $"{MesInstances.Compte3.MontantTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -54,12 +55,12 @@ namespace TPConsole
             {
                 string[] menuLong = {
                     "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2"};
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3"};
                 return menuLong;
             }
             else
             {
-                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2" };
+                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3" };
                 return menuCourt;
             }
         }
@@ -133,6 +134,10 @@ namespace TPConsole
                     case "Mon compte 2":
                         Historique.Suivi().Add("\n    >> Mon compte 2 ");
                         MenuCompte2(MesInstances.Compte2, MesInstances.Compte2.Numéro);
+                        break;
+                    case "Mon compte 3":
+                        Historique.Suivi().Add("\n    >> Mon compte 3 ");
+                        MenuCompte3(MesInstances.Compte3, MesInstances.Compte3.Numéro);
                         break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
@@ -307,6 +312,27 @@ namespace TPConsole
                     () => MenuUtil.Vider(() => tirelire.Vider()),
                     () => MenuUtil.Fermer(() => tirelire.Fermer(), tirelire.MontantTotal),
                     () => MenuUtil.Réactiver(() => tirelire.Réactiver()));
+            }
+        }
+        private static void MenuCompte3(this Compte3 tirelire, int numéro)
+        {
+            var continuer = true;
+            while (continuer)
+            {
+                ConsolePlus.Clear();
+                MenuUtil.AfficherEntêteCompte2(numéro, tirelire.Titulaire, tirelire.MontantTotal, tirelire.État);
+                decimal pourcentage = 1;
+                continuer = MenuUtil.TraiterMenuEtContinuerCompte3(
+                    //Déposer
+                    () => MenuUtil.Déposer(montant => tirelire.Déposer(montant)),
+                    //Retirer
+                    () => MenuUtil.Retirer(montant => tirelire.Retirer(montant)),
+                    //Vider
+                    () => MenuUtil.Vider(() => tirelire.Vider()),
+                    () => MenuUtil.Fermer(() => tirelire.Fermer(), tirelire.MontantTotal),
+                    () => MenuUtil.Réactiver(() => tirelire.Réactiver()),
+                    () => MenuUtil.Geler(() => tirelire.Geler()),
+                    () => MenuUtil.Verser(pourcentage => tirelire.VerserIntérêts(pourcentage)));
             }
         }
     }

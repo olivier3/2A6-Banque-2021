@@ -119,6 +119,52 @@ namespace TPConsole
             }
             return true;
         }
+        public static bool TraiterMenuEtContinuerCompte3(Action déposer, Action retirer, Action vider, Action fermer, Action réactiver, Action geler, Action verser)
+        {
+            if (ConsolePlus.LireChoix(out string? choix, '0',
+                    "Quitter", "Déposer", "Retirer", "Vider", "Fermer", "Réactiver", "Geler", "Verser 1%"))
+            {
+                ConsolePlus.WriteLine();
+                switch (choix)
+                {
+                    case "Déposer":
+                        déposer();
+                        break;
+
+                    case "Retirer":
+                        retirer();
+                        break;
+
+                    case "Vider":
+                        vider();
+                        break;
+
+                    case "Quitter":
+                        return false;
+
+                    case "Fermer":
+                        fermer();
+                        break;
+
+                    case "Réactiver":
+                        réactiver();
+                        break;
+
+                    case "Geler":
+                        geler();
+                        break;
+
+                    case "Verser 1%":
+                        verser();
+                        break;
+
+                    default:
+                        Debug.Fail($"Cas non traité: {choix}");
+                        break;
+                }
+            }
+            return true;
+        }
         public static void Déposer(Func<decimal, bool> déposerDsTirelire)
         {
             if (ConsolePlus.LireDécimal("Montant", out decimal montant))
@@ -271,6 +317,31 @@ namespace TPConsole
             {
                 fermer();
                 ConsolePlus.MessageOkBloquant($"Votre compte a été fermé. Montant récupéré: {montant:C}.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ConsolePlus.MessageErreurBloquant(ex.Message);
+            }
+        }
+
+        public static void Geler(Action geler)
+        {
+            try
+            {
+                geler();
+                ConsolePlus.MessageOkBloquant($"Votre compte a été gelé.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ConsolePlus.MessageErreurBloquant(ex.Message);
+            }
+        }
+        public static void Verser(Func<decimal, decimal> verser)
+        {
+            try
+            {
+                decimal montant = verser(1);
+                ConsolePlus.MessageOkBloquant($"Intérêts versés à votre compte: {montant:C}");
             }
             catch (InvalidOperationException ex)
             {

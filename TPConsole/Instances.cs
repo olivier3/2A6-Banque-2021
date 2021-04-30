@@ -19,6 +19,7 @@ namespace TPConsole
         public Tirelire9 Tirelire9a { get; init; } = new Tirelire9();
         public Compte1 Compte1 { get; init; } = new Compte1(1, "Olivier Bilodeau");
         public Compte2 Compte2 { get; init; } = new Compte2(2, "Olivier Bilodeau");
+        public Compte3 Compte3 { get; init; } = new Compte3(3, "Olivier Bilodeau");
         public static Instances MesInstances { get; set; } = new Instances();
     }
 }
