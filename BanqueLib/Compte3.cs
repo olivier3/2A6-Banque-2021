@@ -38,13 +38,8 @@ namespace BanqueLib
         }
         [JsonConstructor]
         public Compte3(int numéro, string titulaire, decimal montantTotal = 0, ÉtatDuCompte état = ÉtatDuCompte.Actif)
-            : base(numéro, titulaire, montantTotal)
+            : base(numéro, titulaire, montantTotal, état)
         {
-            if (état == ÉtatDuCompte.Fermé && montantTotal != 0)
-            {
-                throw new ArgumentException("Un état fermé est incompatible avec un solde non nul.", nameof(état));
-            }
-            this.État = état;
         }
     }
 }

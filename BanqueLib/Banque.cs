@@ -19,22 +19,25 @@ namespace BanqueLib
 
         public Banque(string nom, IEnumerable<Compte3> Comptes = null)
         {
-
+            throw new NotImplementedException();
         }
 
-        public int ProchainNuméroDeCompte { get; set; }
+        public int ProchainNuméroDeCompte => this.comptes.Count != 0 ? this.comptes.Max(comptes => comptes.Numéro) + 1 : 1;
 
-        public decimal ActifTotal { get; set; }
+        public decimal ActifTotal => this.comptes.Sum(comptes => comptes.MontantTotal);
 
-        public decimal ActifGelé { get; set; }
+        public decimal ActifGelé
+            => this.comptes.Where(comptes => comptes.État == ÉtatDuCompte.Gelé).Sum(comptes => comptes.MontantTotal);
 
-        public int NbComptes { get; set; }
+        public int NbComptes => this.comptes.Count;
 
-        public int NbActifs { get; set; }
+        public int NbActifs => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Actif);
 
-        public int NbGelés { get; set; }
+        public int NbGelés => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Gelé);
 
-        public int NbFermés { get; set; }
+        public int NbFermés => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Fermé);
+
+
 
         public Compte3 OuvrirCompte(string nom, decimal montant = 0)
         {
