@@ -15,13 +15,34 @@ namespace BanqueLib
         public IEnumerable<Compte3> Comptes => this.comptes;
 
         // Propriete automatique
-        public string Nom { get; }
+        public string Nom { get; init; }
 
-        public Banque(string nom, IEnumerable<Compte3> Comptes = null)
+        public Banque(string nom, IEnumerable<Compte3> comptes = null)
         {
-            throw new NotImplementedException();
-        }
+            if (string.IsNullOrWhiteSpace(nom))
+            {
+                throw new ArgumentException("null ou blanc", nameof(nom));
+            }
+            this.Nom = nom;
 
+            if (comptes != null)
+            {
+                /*foreach (Compte3 compte in comptes)
+                {
+                    if (this.comptes.GroupBy(x => x.Numéro).All(g => g.Count() == 1))
+                    {
+                        throw new ArgumentException("numéros en double");
+                    }
+                }*/
+
+                foreach (Compte3 compte in comptes)
+                {
+                    this.comptes.Add(new Compte3(compte));
+                }
+
+                this.comptes.Sort((cpt1, cpt2) => cpt1.Numéro.CompareTo(cpt2.Numéro));
+            }
+        }
         public int ProchainNuméroDeCompte => this.comptes.Count != 0 ? this.comptes.Max(comptes => comptes.Numéro) + 1 : 1;
 
         public decimal ActifTotal => this.comptes.Sum(comptes => comptes.MontantTotal);
