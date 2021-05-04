@@ -27,16 +27,12 @@ namespace BanqueLib
 
             if (comptes != null)
             {
-                /*foreach (Compte3 compte in comptes)
+                foreach (Compte3 compte in comptes)
                 {
-                    if (this.comptes.GroupBy(x => x.Numéro).All(g => g.Count() == 1))
+                    if (this.comptes.Any(compteDouble => compteDouble.Numéro == compte.Numéro))
                     {
                         throw new ArgumentException("numéros en double");
                     }
-                }*/
-
-                foreach (Compte3 compte in comptes)
-                {
                     this.comptes.Add(new Compte3(compte));
                 }
 
@@ -60,19 +56,65 @@ namespace BanqueLib
 
 
 
-        public Compte3 OuvrirCompte(string nom, decimal montant = 0)
+        public Compte3 OuvrirCompte(string nom, decimal montantInitial = 0)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(nom))
+            {
+                throw new ArgumentException("null ou blanc", nameof(nom));
+            }
+
+            if (montantInitial < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(montantInitial), montantInitial, "trop petit");
+            }
+
+            Compte3 compte = new Compte3(this.ProchainNuméroDeCompte, nom, montantInitial);
+
+            this.comptes.Add(compte);
+
+            return compte;
         }
 
         public Compte3 DétruireCompte(int numéroCompte)
         {
-            throw new NotImplementedException();
+
+            if (!this.comptes.Exists(noCompte => noCompte.Numéro == numéroCompte))
+            {
+                throw new ArgumentException("compte inexistant", nameof(numéroCompte));
+            }
+
+            int emplCompteÀDétruire = this.comptes.FindIndex(indice => indice.Numéro == numéroCompte);
+
+            if (this.comptes[emplCompteÀDétruire].État != ÉtatDuCompte.Fermé)
+            {
+                throw new InvalidOperationException("pas fermé");
+            }
+
+            Compte3 compteRetiré = this.comptes[emplCompteÀDétruire];
+
+            this.comptes.RemoveAt(emplCompteÀDétruire);
+
+            return compteRetiré;
         }
 
-        public decimal VerserIntérêts(decimal pourcentage, out int montant)
+        public decimal VerserIntérêts(decimal pourcentage, out int nbCompte)
         {
-            throw new NotImplementedException();
+            decimal totalIntérêts = 0;
+            nbCompte = 0;
+            foreach (Compte3 compte in this.comptes)
+            {
+                if (compte.État != ÉtatDuCompte.Fermé)
+                {
+                    decimal intérêts = compte.VerserIntérêts(pourcentage);
+                    if (totalIntérêts < intérêts)
+                    {
+                        totalIntérêts += intérêts;
+                        nbCompte += 1;
+                    }
+                }
+            }
+
+            return totalIntérêts;
         }
     }
 }

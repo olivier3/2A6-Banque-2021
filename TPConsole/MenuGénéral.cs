@@ -321,7 +321,6 @@ namespace TPConsole
             {
                 ConsolePlus.Clear();
                 MenuUtil.AfficherEntêteCompte2(numéro, tirelire.Titulaire, tirelire.MontantTotal, tirelire.État);
-                decimal pourcentage = 1;
                 continuer = MenuUtil.TraiterMenuEtContinuerCompte3(
                     //Déposer
                     () => MenuUtil.Déposer(montant => tirelire.Déposer(montant)),
