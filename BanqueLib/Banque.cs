@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BanqueLib
 {
@@ -39,6 +37,7 @@ namespace BanqueLib
                 this.comptes.Sort((cpt1, cpt2) => cpt1.Numéro.CompareTo(cpt2.Numéro));
             }
         }
+
         public int ProchainNuméroDeCompte => this.comptes.Count != 0 ? this.comptes.Max(comptes => comptes.Numéro) + 1 : 1;
 
         public decimal ActifTotal => this.comptes.Sum(comptes => comptes.MontantTotal);
