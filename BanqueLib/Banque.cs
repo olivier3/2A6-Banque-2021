@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace BanqueLib
 {
@@ -38,19 +39,26 @@ namespace BanqueLib
             }
         }
 
+        [JsonIgnore]
         public int ProchainNuméroDeCompte => this.comptes.Count != 0 ? this.comptes.Max(comptes => comptes.Numéro) + 1 : 1;
 
+        [JsonIgnore]
         public decimal ActifTotal => this.comptes.Sum(comptes => comptes.MontantTotal);
 
+        [JsonIgnore]
         public decimal ActifGelé
             => this.comptes.Where(comptes => comptes.État == ÉtatDuCompte.Gelé).Sum(comptes => comptes.MontantTotal);
 
+        [JsonIgnore]
         public int NbComptes => this.comptes.Count;
 
+        [JsonIgnore]
         public int NbActifs => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Actif);
 
+        [JsonIgnore]
         public int NbGelés => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Gelé);
 
+        [JsonIgnore]
         public int NbFermés => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Fermé);
 
 
