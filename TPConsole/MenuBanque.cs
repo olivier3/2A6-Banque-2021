@@ -57,7 +57,18 @@ namespace TPConsole
                     case "Quitter":
                         return false;
                     case "Ouvrir Compte":
-                        OuvertureCompte(p_banque, "OB");
+                        try
+                        {
+                            OuvertureCompte(p_banque, "OB");
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            ConsolePlus.MessageErreurBloquant(ex.Message);
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            ConsolePlus.MessageErreurBloquant(ex.Message);
+                        }
                         break;
                     case "Verser 2%":
                         Verser2Pourcent();
@@ -78,10 +89,18 @@ namespace TPConsole
 
         private static void OuvertureCompte(Banque p_banque, string p_nomBanque)
         {
-            string nom = ConsolePlus.LireTexte("Titulaire", défaut: "", séparateur: ":");
+            string nom = ConsolePlus.LireTexte("Titulaire", séparateur: ":");
 
             if (ConsolePlus.LireDécimal(" Mise de fond initiale", out decimal miseDeFond, défaut: "0", bloquant: true))
             {
+                if (miseDeFond < 0)
+                {
+                    throw new InvalidOperationException("Échec: La mise de fond est négative.");
+                }
+                if (Math.Round(miseDeFond, 2) != miseDeFond)
+                {
+                    throw new ArgumentException("Échec: Les fractions de cent ne sont pas admissibles.");
+                }
                 Compte3 compte = p_banque.OuvrirCompte(nom, miseDeFond);
                 ConsolePlus.MessageOkBloquant($"Nouveau compte #{compte.Numéro} avec mise de fond {miseDeFond:C}");
                 Historique.Suivi().Add($"\n    >> [{p_nomBanque}] Ouvrir #{compte.Numéro} avec {miseDeFond:C}");
