@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 using cstjean.info.fg.consoleplus;
 
@@ -8,6 +9,8 @@ namespace TPConsole
     {
         public static void Main()
         {
+            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
             ConsolePlus.SetWindowSize(80, 35);
             Console.Title = "OB - TP Banque";
             ConsolePlus.IndentationGénérale = 1;

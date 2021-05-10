@@ -45,6 +45,7 @@ namespace TPConsole
             ConsolePlus.Afficher("Mon compte 1", $"{MesInstances.Compte1.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 2", $"{MesInstances.Compte2.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 3", $"{MesInstances.Compte3.MontantTotal:C}");
+            ConsolePlus.Afficher("Banque OB", $"{MesInstances.Banque.ActifTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -55,12 +56,12 @@ namespace TPConsole
             {
                 string[] menuLong = {
                     "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3"};
+                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3", "Banque OB"};
                 return menuLong;
             }
             else
             {
-                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3" };
+                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3", "Banque OB" };
                 return menuCourt;
             }
         }
@@ -139,6 +140,10 @@ namespace TPConsole
                         Historique.Suivi().Add("\n    >> Mon compte 3 ");
                         MenuCompte3(MesInstances.Compte3, MesInstances.Compte3.Numéro);
                         break;
+                    case "Banque OB":
+                        Historique.Suivi().Add("\n    >> Banque OB ");
+                        MenuBanque.Afficher(MesInstances.Banque);
+                        break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
                         break;
@@ -153,14 +158,18 @@ namespace TPConsole
             {
                 Tirelire1.MontantTotal = 0;
                 _ = Tirelire2.Vider();
-                MesInstances.Tirelire3a.MontantTotal = 0;
-                MesInstances.Tirelire3b.MontantTotal = 0;
-                MesInstances.Tirelire4a.MontantTotal = 0;
-                _ = Tirelire5.Vider(MesInstances.Tirelire5a);
-                _ = MesInstances.Tirelire6a.Vider();
-                _ = MesInstances.Tirelire6p.Vider();
-                _ = MesInstances.Tirelire7a.Vider();
-                _ = MesInstances.Tirelire9a.Vider();
+                //MesInstances.Tirelire3a.MontantTotal = 0;
+                //MesInstances.Tirelire3b.MontantTotal = 0;
+                //MesInstances.Tirelire4a.MontantTotal = 0;
+                //_ = Tirelire5.Vider(MesInstances.Tirelire5a);
+                //_ = MesInstances.Tirelire6a.Vider();
+                //_ = MesInstances.Tirelire6p.Vider();
+                //_ = MesInstances.Tirelire7a.Vider();
+                //_ = MesInstances.Tirelire9a.Vider();
+                //_ = MesInstances.Compte1.Vider();
+                //_ = MesInstances.Compte2.Vider();
+                //_ = MesInstances.Compte3.Vider();
+                MesInstances = new Instances();
                 Historique.Suivi().Clear();
             }
             else
@@ -314,7 +323,7 @@ namespace TPConsole
                     () => MenuUtil.Réactiver(() => tirelire.Réactiver()));
             }
         }
-        private static void MenuCompte3(this Compte3 tirelire, int numéro)
+        public static void MenuCompte3(this Compte3 tirelire, int numéro)
         {
             var continuer = true;
             while (continuer)

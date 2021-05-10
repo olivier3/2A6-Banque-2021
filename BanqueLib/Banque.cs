@@ -62,10 +62,10 @@ namespace BanqueLib
                 throw new ArgumentException("null ou blanc", nameof(nom));
             }
 
-            if (montantInitial < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(montantInitial), montantInitial, "trop petit");
-            }
+            //if (montantInitial < 0)
+            //{
+            //    throw new ArgumentOutOfRangeException(nameof(montantInitial), montantInitial, "trop petit");
+            //}
 
             Compte3 compte = new Compte3(this.ProchainNuméroDeCompte, nom, montantInitial);
 
