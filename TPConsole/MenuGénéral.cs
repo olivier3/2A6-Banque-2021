@@ -144,11 +144,9 @@ namespace TPConsole
                         MenuCompte3(MesInstances.Compte3, MesInstances.Compte3.Numéro);
                         break;
                     case "Banque OB":
-                        Historique.Suivi().Add("\n    >> Banque OB ");
                         MenuBanque.Afficher(MesInstances.Banque, "OB");
                         break;
                     case "Banque Jedi":
-                        Historique.Suivi().Add("\n    >> Banque Jedi ");
                         MenuBanque.Afficher(MesInstances.BanqueJedi, "Jedi");
                         break;
                     default:

@@ -71,7 +71,7 @@ namespace TPConsole
                         }
                         break;
                     case "Verser 2%":
-                        Verser2Pourcent();
+                        Verser2Pourcent(p_banque, p_nomBanque);
                         break;
                     default:
                         foreach (Compte3 compte in p_banque.Comptes)
@@ -107,9 +107,30 @@ namespace TPConsole
             }
         }
 
-        private static void Verser2Pourcent()
+        private static void Verser2Pourcent(Banque p_banque, string p_nomBanque)
         {
-
+            decimal intérêtTotal = 0;
+            int nbCompteAvecVersé = 0;
+            decimal intérêt = 0;
+            foreach (Compte3 compte in p_banque.Comptes)
+            {
+                if (compte.MontantTotal > 0)
+                {
+                    try
+                    {
+                        intérêt = compte.VerserIntérêts(2);
+                        Historique.Suivi().RemoveAt(Historique.Suivi().Count - 1);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        ConsolePlus.MessageErreurBloquant(ex.Message);
+                    }
+                    intérêtTotal += intérêt;
+                    nbCompteAvecVersé += 1;
+                }
+            }
+            ConsolePlus.MessageOkBloquant($"Intérêts versés dans {nbCompteAvecVersé} comptes: {intérêtTotal:C}");
+            Historique.Suivi().Add($"\n     >> [{p_nomBanque}] Verser {intérêtTotal:C} ");
         }
     }
 }
