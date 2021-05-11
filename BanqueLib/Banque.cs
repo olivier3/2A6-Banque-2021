@@ -61,8 +61,6 @@ namespace BanqueLib
         [JsonIgnore]
         public int NbFermés => this.comptes.Count(comptes => comptes.État == ÉtatDuCompte.Fermé);
 
-
-
         public Compte3 OuvrirCompte(string nom, decimal montantInitial = 0)
         {
             if (string.IsNullOrWhiteSpace(nom))
@@ -96,7 +94,6 @@ namespace BanqueLib
             {
                 throw new InvalidOperationException("pas fermé");
             }
-
             Compte3 compteRetiré = this.comptes[emplCompteÀDétruire];
 
             this.comptes.RemoveAt(emplCompteÀDétruire);

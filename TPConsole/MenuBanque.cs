@@ -78,7 +78,8 @@ namespace TPConsole
                         {
                             if (choix == $"{compte.Numéro,-10}{compte.Titulaire,-20}{compte.État,-10}{compte.MontantTotal,10:C}")
                             {
-                                MenuGénéral.MenuCompte3(compte, compte.Numéro);
+                                Historique.Suivi().Add($"\n     >> [{p_banque.Nom}] Compte {compte.Numéro}");
+                                MenuCompte.Afficher(compte, p_banque);
                             }
                         }
                         break;
