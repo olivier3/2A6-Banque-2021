@@ -11,19 +11,19 @@ namespace TPConsole
 {
     public static class MenuBanque
     {
-        public static void Afficher(Banque banque)
+        public static void Afficher(Banque banque, string nomBanque)
         {
             do
             {
                 ConsolePlus.Clear();
-                AfficherEntête(banque);
-            } while (TraiterMenuEtContinuer(banque));
+                AfficherEntête(banque, nomBanque);
+            } while (TraiterMenuEtContinuer(banque, nomBanque));
         }
 
-        private static void AfficherEntête(Banque p_banque)
+        private static void AfficherEntête(Banque p_banque, string p_nomBanque)
         {
             ConsolePlus.WriteLine();
-            ConsolePlus.WriteLine(ConsoleColor.Magenta, "OB - Banque OB");
+            ConsolePlus.WriteLine(ConsoleColor.Magenta, $"OB - Banque {p_nomBanque}");
             ConsolePlus.WriteLine(ConsoleColor.Magenta, "===============");
             ConsolePlus.WriteLine();
             ConsolePlus.Afficher("Historique", "");
@@ -47,7 +47,7 @@ namespace TPConsole
             return menuFinal;
         }
 
-        private static bool TraiterMenuEtContinuer(Banque p_banque)
+        private static bool TraiterMenuEtContinuer(Banque p_banque, string p_nomBanque)
         {
             if (ConsolePlus.LireChoix(out string? choix, 'A', Options(p_banque)))
             {
@@ -59,7 +59,7 @@ namespace TPConsole
                     case "Ouvrir Compte":
                         try
                         {
-                            OuvertureCompte(p_banque, "OB");
+                            OuvertureCompte(p_banque, p_nomBanque);
                         }
                         catch (InvalidOperationException ex)
                         {

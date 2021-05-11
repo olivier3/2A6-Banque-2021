@@ -21,6 +21,22 @@ namespace TPConsole
         public Compte2 Compte2 { get; init; } = new Compte2(2, "Olivier Bilodeau");
         public Compte3 Compte3 { get; init; } = new Compte3(3, "Olivier Bilodeau");
         public Banque Banque { get; init; } = new Banque("Olivier Bilodeau");
+        public Banque BanqueJedi { get; init; } = new Banque("Jedi",
+            new[]
+            {
+                new Compte3(1, "Olivier Bilodeau", 111 ,ÉtatDuCompte.Actif),
+                new Compte3(2, "Luke", 0, ÉtatDuCompte.Fermé),
+                new Compte3(4, "Leia", 444 ,ÉtatDuCompte.Actif),
+                new Compte3(7, "Obiwan", 777 ,ÉtatDuCompte.Actif),
+                new Compte3(9, "Yoda", 999 ,ÉtatDuCompte.Gelé),
+                new Compte3(12, "Anakin", 0 ,ÉtatDuCompte.Fermé),
+                new Compte3(15, "Solo", 150 ,ÉtatDuCompte.Gelé),
+                new Compte3(16, "Chewy", 2150 ,ÉtatDuCompte.Actif),
+                new Compte3(19, "Sidious", 777 ,ÉtatDuCompte.Gelé),
+            }
+        );
+
+
         public static Instances MesInstances { get; set; } = new Instances();
     }
 }

@@ -46,6 +46,7 @@ namespace TPConsole
             ConsolePlus.Afficher("Mon compte 2", $"{MesInstances.Compte2.MontantTotal:C}");
             ConsolePlus.Afficher("Mon compte 3", $"{MesInstances.Compte3.MontantTotal:C}");
             ConsolePlus.Afficher("Banque OB", $"{MesInstances.Banque.ActifTotal:C}");
+            ConsolePlus.Afficher("Banque Jedi", $"{MesInstances.BanqueJedi.ActifTotal:C}");
             ConsolePlus.WriteLine();
         }
 
@@ -55,13 +56,15 @@ namespace TPConsole
             if (menu)
             {
                 string[] menuLong = {
-                    "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a", "Tirelire 3b", "Tirelire 4a",
-                    "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3", "Banque OB"};
+                    "Quitter", "Reset", "Planter", "Réduire", "Tirelire 1", "Tirelire 2", "Tirelire 3a"
+                    , "Tirelire 3b", "Tirelire 4a", "Tirelire 5a", "Tirelire 6a", "Tirelire 6p", "Tirelire 7a"
+                    , "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3", "Banque OB", "Banque Jedi"};
                 return menuLong;
             }
             else
             {
-                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1", "Mon compte 2", "Mon compte 3", "Banque OB" };
+                string[] menuCourt = { "Quitter", "Reset", "Planter", "Étendre", "Tirelire 9a", "Mon compte 1"
+                        , "Mon compte 2", "Mon compte 3", "Banque OB", "Banque Jedi" };
                 return menuCourt;
             }
         }
@@ -142,7 +145,11 @@ namespace TPConsole
                         break;
                     case "Banque OB":
                         Historique.Suivi().Add("\n    >> Banque OB ");
-                        MenuBanque.Afficher(MesInstances.Banque);
+                        MenuBanque.Afficher(MesInstances.Banque, "OB");
+                        break;
+                    case "Banque Jedi":
+                        Historique.Suivi().Add("\n    >> Banque Jedi ");
+                        MenuBanque.Afficher(MesInstances.BanqueJedi, "Jedi");
                         break;
                     default:
                         Debug.Fail($"Cas non traité: {choix}");
